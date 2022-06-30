@@ -1,13 +1,3 @@
-var events = [];
-
-if (!events) [
-  events = {
-    value: "",
-    time: ""
-  }
-];
-
-
 // Display current day
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
@@ -29,5 +19,21 @@ function setHourColor() {
         };
     });
 };
+
+// Click Save Button to Save Events to Local Storage
+$(".saveBtn").on("click", function() {
+    var timeId = $(this).prev().attr("id");
+    var events = $(this).prev().val();
+
+    localStorage.setItem(timeId, events);
+});
+
+// Load Events
+function loadEvents() {
+    $(".description").each(function() {
+        var hour = parseInt($(this).attr("id"));
+        console.log(localStorage.getItem(hour));
+    })
+}
 
 setHourColor();
