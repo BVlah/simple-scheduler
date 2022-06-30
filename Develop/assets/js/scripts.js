@@ -4,7 +4,6 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 // Compare time slot to current time and adjust color
 function setHourColor() {
     var currentHour = moment().hours();
-
     $(".description").each(function() {
         var timeSlot = parseInt($(this).attr("id"));
 
@@ -32,8 +31,16 @@ $(".saveBtn").on("click", function() {
 function loadEvents() {
     $(".description").each(function() {
         var hour = parseInt($(this).attr("id"));
-        console.log(localStorage.getItem(hour));
+        var hourlyEvent = localStorage.getItem(hour);
+
+        $(this).val(hourlyEvent);
     })
 }
 
+// Update Event Colors Every Minute
+setInterval(function () {
+        setHourColor();
+}, 60000);  
+
 setHourColor();
+loadEvents();
